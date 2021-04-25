@@ -1,0 +1,42 @@
+version: "3"
+services:
+  front:
+    build:
+      context: ./front
+      dockerfile: ../docker/Dockerfile.front
+    ports:
+      - "8080:8080"
+    networks:
+      - "upstride"
+    volumes:
+      - "./front:/data"
+    command: "./start-front.sh"
+  back:
+    build:
+      context: ./back
+      dockerfile: ../docker/Dockerfile.back
+    ports:
+      - "8081:8081"
+    networks:
+      - "upstride"
+    volumes:
+      - "./back:/data"
+    command: "./start-back.sh"
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - "upstride"
+  workers:
+    build:
+      context: ./back
+      dockerfile: ../docker/Dockerfile.back
+    ports:
+      - "8082:8082"
+    networks:
+      - "upstride"
+    command: "celery -A app.celery worker --loglevel INFO"
+networks:
+  upstride:
+

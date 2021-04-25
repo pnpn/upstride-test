@@ -1,7 +1,9 @@
-##Starting the project
+## Starting the project
 make start
-##Stopping the project
+
+## Stopping the project
 make stop
+
 ## Restarting the project
 make restart
 

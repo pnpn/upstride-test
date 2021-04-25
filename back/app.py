@@ -31,7 +31,7 @@ def long_task():
 def start_pipeline():
     print("Start long task")
     current_tasks.append(long_task.delay())
-    return {"pipeline": "started"}
+    return {"pipeline": "started"}, 201
 
 
 @app.route("/status", methods=["GET"])
